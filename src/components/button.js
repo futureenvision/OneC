@@ -1,24 +1,132 @@
-import { Component } from "../onec.js";
+import { Component, ReactiveArray, ReactiveObject } from "../onec.js";
 
 export class Button extends Component {
-  headerText = "Hello ";
-  template = {
-    p: {
-      _text: () => this.headerText,
+  $template = {
+    "c-label": {
+      _txt: () => this.headerText,
     },
-    button: {
-      _text: "Hello",
-      $click: () => this.sayHello(),
+    div: {
+      _style: {
+        padding: "1em",
+        "margin-bottom": "1em",
+        "font-family": "Helvetica",
+        "background-color": "#E7E9EB",
+      },
+      _children: [
+        {
+          p: {
+            _text: () => this.headerText,
+            _style: {
+              color: () => this.headerColor,
+            },
+          },
+        },
+        {
+          "c-label": {},
+        },
+      ],
     },
+    _children: ReactiveArray(() => {
+      const children = [
+        {
+          button: {
+            _text: "Click Me",
+            _style: {
+              color: "white",
+              border: "none",
+              padding: " 0.5em 0.8em",
+              "font-family": "Helvetica",
+              "background-color": "#BA3B46",
+              "margin-bottom": "4em",
+              "margin-right": "1em",
+            },
+            $click: () => this.sayHello(),
+          },
+        },
+        {
+          button: {
+            _text: "Change Color",
+            _style: {
+              color: "white",
+              border: "none",
+              padding: " 0.5em 0.8em",
+              "font-family": "Helvetica",
+              "background-color": "#BA3B46",
+              "margin-bottom": "4em",
+              "margin-right": "1em",
+            },
+            $click: () => this.changeColor(),
+          },
+        },
+        ReactiveObject(() => {
+          if (this.headerNum % 2 !== 0) {
+            return {
+              button: {
+                _text: "Odd",
+                _style: {
+                  color: "white",
+                  border: "none",
+                  padding: " 0.5em 0.8em",
+                  "font-family": "Helvetica",
+                  "background-color": "#BA3B46",
+                  "margin-bottom": "4em",
+                  "margin-right": "1em",
+                },
+                $click: () => this.add(),
+              },
+            };
+          }
+        }),
+        {
+          p: {
+            _children: ReactiveArray(() => {
+              return [
+                {
+                  _text: "Child of Child",
+                },
+              ];
+            }),
+          },
+        },
+      ];
+      if (this.headerNum % 2 === 0) {
+        children.push({
+          button: {
+            _text: "Even",
+            _style: {
+              color: "white",
+              border: "none",
+              padding: " 0.5em 0.8em",
+              "font-family": "Helvetica",
+              "background-color": "#BA3B46",
+              "margin-bottom": "4em",
+              "margin-right": "1em",
+            },
+            $click: () => this.add(),
+          },
+        });
+      }
+      return children;
+    }),
   };
 
-  _style = "p{ color : red }";
+  headerText = "Hello";
+  headerColor = "black";
+  headerNum = 0;
 
   constructor() {
     super();
   }
 
+  add() {
+    this.headerNum++;
+  }
+
   sayHello() {
     this.headerText += " World";
+  }
+
+  changeColor() {
+    this.headerColor = "#BA3B46";
   }
 }
