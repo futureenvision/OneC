@@ -1,3 +1,4 @@
+// SECTION: Component
 export class Component extends HTMLElement {
   _tempTemplate = document.createElement("template");
   _templateRaw = "";
@@ -9,6 +10,8 @@ export class Component extends HTMLElement {
   }
 
   updateTemplate() {
+    // TODO: benchmark refresh process
+    // console.log("[updateTemplate]");
     this._renderTemplate(this.shadowRoot, this.$template);
   }
 
@@ -32,7 +35,7 @@ export class Component extends HTMLElement {
               } else {
                 cssObject = value;
               }
-              for (const cssProperty in value) {
+              for (const cssProperty in cssObject) {
                 if (Object.hasOwnProperty.call(value, cssProperty)) {
                   const cssValue = value[cssProperty];
                   if (typeof cssValue === "function") {
@@ -43,18 +46,21 @@ export class Component extends HTMLElement {
                 }
               }
               break;
-            case "_children":
-              if (value instanceof _ReactiveArray) {
-                value.getArray().forEach((child) => {
-                  if (child instanceof _ReactiveObject) {
-                    const element = child.getObject();
-                    this._renderTemplate(parentElement, element, false);
-                    value.addGeneratedElements(element);
-                  } else {
-                    this._renderTemplate(parentElement, child, false);
-                    value.addGeneratedElements(child);
-                  }
-                });
+            case "_cn":
+              if (value instanceof _ReactiveList) {
+                const children = value.getArray();
+                if (children) {
+                  children.forEach((child) => {
+                    if (child instanceof _ReactiveObject) {
+                      const element = child.getObject();
+                      this._renderTemplate(parentElement, element, false);
+                      value.addGeneratedElements(element);
+                    } else {
+                      this._renderTemplate(parentElement, child, false);
+                      value.addGeneratedElements(child);
+                    }
+                  });
+                }
               } else {
                 value.forEach((child) => {
                   if (child instanceof _ReactiveObject) {
@@ -68,14 +74,16 @@ export class Component extends HTMLElement {
               }
               break;
             default:
-              if (typeof value === "function") {
+              if (value instanceof _BindObject) {
                 parentElement.setAttribute(
                   key.substring(1, key.length),
-                  value()
+                  value.getCurrentState()
                 );
+                value.addListener(parentElement, key.substring(1, key.length));
               } else {
                 parentElement.setAttribute(key.substring(1, key.length), value);
               }
+
               break;
           }
         } else if (key[0] === "$") {
@@ -92,6 +100,7 @@ export class Component extends HTMLElement {
               (event) => {
                 value(event);
                 event.stopPropagation();
+                this.updateTemplate();
               }
             );
           }
@@ -119,20 +128,23 @@ export class Component extends HTMLElement {
 }
 
 // SECTION: ReactiveArray
-export const ReactiveArray = (arrayFunction) => {
-  return new _ReactiveArray(arrayFunction);
+export const ReactiveList = (arrayFunction) => {
+  return new _ReactiveList(arrayFunction);
 };
-export class _ReactiveArray {
+export class _ReactiveList {
   _arrayFunction = null;
   _elements = [];
+  _elementsList = [];
 
   constructor(arrayFunction) {
     this._arrayFunction = arrayFunction;
   }
 
   getArray() {
+    this._elementsList = [];
     this.removeGeneratedElements();
-    return this._arrayFunction();
+    this._arrayFunction(this._elementsList);
+    return this._elementsList;
   }
 
   addGeneratedElements(element) {
@@ -161,7 +173,17 @@ export class _ReactiveArray {
 }
 
 // SECTION: ReactiveObject
-export const ReactiveObject = (objectFunction) => {
+class ElementObject {
+  _element = null;
+  set(element) {
+    this._element = element;
+  }
+  get() {
+    return this._element;
+  }
+}
+
+export const ReactiveObj = (objectFunction) => {
   return new _ReactiveObject(objectFunction);
 };
 export class _ReactiveObject {
@@ -173,8 +195,10 @@ export class _ReactiveObject {
   }
 
   getObject() {
+    let elementObject = new ElementObject();
     this.removeGeneratedElement();
-    return this._objectFunction();
+    this._objectFunction(elementObject);
+    return elementObject.get();
   }
 
   addGeneratedElement(element) {
@@ -320,4 +344,115 @@ export const OneC = (components) => {
   components.forEach((component) => {
     Renderer(component);
   });
+};
+
+// SECTION: Store
+export class Store {
+  _bindingFunctions = [];
+
+  constructor() {}
+
+  bind(_bindingFunction) {
+    if (_bindingFunction) {
+      this._bindingFunctions.push(_bindingFunction);
+      if (this._bindingFunctions.length === 1) {
+        this._activateVariableWatcher();
+        this._updateBindings();
+      }
+    }
+  }
+
+  _updateBindings() {
+    for (const bindingFunction of this._bindingFunctions) {
+      bindingFunction(this);
+    }
+  }
+
+  _activateVariableWatcher() {
+    Object.getOwnPropertyNames(this).forEach((prop) => {
+      const value = this[prop];
+      if (prop[0] !== "_" && prop[0] !== "$") {
+        if (typeof value === "object") {
+          this._activateVariableProxy(prop, value);
+        } else {
+          this._activateVariablePrimitives(prop, value);
+        }
+      }
+    });
+  }
+
+  _activateVariablePrimitives(prop, value) {
+    if (
+      this[`_watch_${prop}`] ||
+      this[`_watch_${prop}`] === 0 ||
+      this[`_watch_${prop}`] === false
+    ) {
+      throw new Error(
+        `watcher can not activate on ${prop} because _${prop} exists`
+      );
+    }
+    this[`_watch_${prop}`] = value;
+    Object.defineProperty(this, prop, {
+      get() {
+        return this[`_watch_${prop}`];
+      },
+
+      set(value) {
+        this[`_watch_${prop}`] = value;
+        this._updateBindings();
+      },
+    });
+  }
+
+  _activateVariableProxy(prop, value) {
+    this[`_watch_${prop}`] = value;
+    const validator = {
+      get(target, key) {
+        if (typeof target[key] === "object" && target[key] !== null) {
+          return new Proxy(target[key], validator);
+        } else {
+          return target[key];
+        }
+      },
+      set: (target, prop, receiver) => {
+        target[prop] = receiver;
+        this._updateBindings();
+        return true;
+      },
+    };
+    this[`${prop}`] = new Proxy(this[`_watch_${prop}`], validator);
+  }
+}
+
+class _BindObject {
+  _currentState = null;
+  _onChange = null;
+  _element = null;
+
+  constructor(initState, onChange) {
+    this._currentState = initState;
+    this._onChange = onChange;
+  }
+
+  addListener(element, property) {
+    if (element) {
+      if (!this._element) {
+        this._element = element;
+        element.addEventListener("keyup", (event) => {
+          const updatedValue = element[property];
+          if (updatedValue) {
+            this._onChange(updatedValue);
+            this._currentState = updatedValue;
+          }
+        });
+      }
+    }
+  }
+
+  getCurrentState() {
+    return this._currentState;
+  }
+}
+export const Bind = (initState, onChange) => {
+  return new _BindObject(initState, onChange);
 };

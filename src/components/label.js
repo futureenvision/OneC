@@ -4,7 +4,7 @@ export class Label extends Component {
   $style = "p{ color: blue }";
   $template = {
     b: {
-      _children: [
+      _cn: [
         {
           p: {
             _text: () => `Counter: ${this.counter} ${this._txt}`,
@@ -47,12 +47,12 @@ export class Label extends Component {
   }
 
   OnInit() {
-    // setInterval(() => {
-    //   this.counter++;
-    // }, 1000);
+    setInterval(() => {
+      this.counter++;
+    }, 1000);
     
-    // setTimeout(() => {
-    //   this.details.user.names.first = "Peter";
-    // }, 5000);
+    setTimeout(() => {
+      this.details.user.names.first = "Peter";
+    }, 5000);
   }
 }

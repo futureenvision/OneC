@@ -1,8 +1,8 @@
-import { Button } from "./components/button.js";
-import { Label } from "./components/label.js";
+import { ServiceTest } from "./components/service_test.js";
 import { OneC } from "./onec.js";
 
 OneC([
-  { selector: "c-button", definition: Button },
-  { selector: "c-label", definition: Label },
+  // { selector: "c-label", definition: Label },
+  // { selector: "c-button", definition: Button },
+  { selector: "c-service", definition: ServiceTest },
 ]);

@@ -12,7 +12,7 @@ export class Button extends Component {
         "font-family": "Helvetica",
         "background-color": "#E7E9EB",
       },
-      _children: [
+      _cn: [
         {
           p: {
             _text: () => this.headerText,
@@ -26,7 +26,7 @@ export class Button extends Component {
         },
       ],
     },
-    _children: ReactiveArray(() => {
+    _cn: ReactiveArray(() => {
       const children = [
         {
           button: {
@@ -79,7 +79,7 @@ export class Button extends Component {
         }),
         {
           p: {
-            _children: ReactiveArray(() => {
+            _cn: ReactiveArray(() => {
               return [
                 {
                   _text: "Child of Child",
