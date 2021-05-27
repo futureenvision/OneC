@@ -1,8 +1,8 @@
-import { Component, Store, Bind, ReactiveList, ReactiveObj } from "../onec.js";
-import css from "../index.css";
+let css = require('./index.css').default;
+import { Component, Store, Bind, ReactiveLst, ReactiveObj } from "../onec";
 
 class UserDataStore extends Store {
-  users = [
+  users: Array<any> = [
     {
       id: 1,
       name: "john",
@@ -32,17 +32,16 @@ const userDataStore = new UserDataStore();
 
 export class ServiceTest extends Component {
   // variables
-  users = [];
+  users: Array<any> = [];
   isEdit = false;
   message = "Hello";
 
   // component definition
   $style = css.toString();
-
   $template = {
     div: {
       _class: "main-area",
-      _cn: ReactiveList((elements) => {
+      _cn: ReactiveLst((elements) => {
         for (let user of this.users) {
           elements.push({
             div: {
