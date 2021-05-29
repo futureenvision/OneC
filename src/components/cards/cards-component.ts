@@ -1,13 +1,8 @@
-import {
-  OneComponent,
-  Bind,
-  ReactiveLst,
-  ReactiveObj,
-  ITemplate,
-} from "../../onec";
+import { ICardComponent } from "../card";
 import { usersStore } from "../../stores";
 import { IUser } from "../../stores/users";
 let css = require("./cards-component.css").default;
+import { OneComponent, Bind, ReactiveLst, ReactiveObj, } from "../../onec";
 
 export class CardsComponent extends OneComponent {
   // variables
@@ -15,7 +10,10 @@ export class CardsComponent extends OneComponent {
 
   // component definition
   $style = css.toString();
-  $template: ITemplate = {
+  $template: ICardComponent = {
+    "c-card": {
+      _name: "Hmm"
+    },
     div: {
       _class: "main-area",
       _cn: ReactiveLst((elements) => {

@@ -300,7 +300,7 @@ export class OneComponent extends HTMLElement {
           } else if (key[0] === "$") {
             if (
               !objTemplate[
-                `__onec_event_listener__${key.substring(1, key.length)}`
+              `__onec_event_listener__${key.substring(1, key.length)}`
               ]
             ) {
               objTemplate[
@@ -415,8 +415,9 @@ export const OneCRenderer = (component: IComponent): void => {
             prop.substring(0, 7) !== "_watch_" &&
             prop !== "template" &&
             prop !== "templateRaw" &&
-            prop === "_txt"
-          ) {
+            prop !== "_text"
+            ) {
+            console.log(this, prop);
             const attributeValue = this.getAttribute(
               prop.substring(1, prop.length)
             );
@@ -679,7 +680,7 @@ export class OneCStore {
    * Represents a OneC Store.
    * @constructor
    */
-  constructor() {}
+  constructor() { }
 
   /**
    * This function is used to add a anonymous function using to bind the Store with a component.
