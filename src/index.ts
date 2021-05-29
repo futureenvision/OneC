@@ -1,4 +1,4 @@
-import { CardsComponent } from "./components/cards-component";
+import { CardsComponent } from "./components/cards/cards-component";
 import { OneC } from "./onec";
 
 OneC([

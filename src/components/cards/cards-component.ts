@@ -1,40 +1,16 @@
-let css = require('./index.css').default;
-import { OneComponent, OneCStore, Bind, ReactiveLst, ReactiveObj, ITemplate } from "../onec";
-
-class UserDataStore extends OneCStore {
-  users: Array<any> = [
-    {
-      id: 1,
-      name: "john",
-      email: "john@gmail.com",
-      isEdit: false,
-    },
-    {
-      id: 2,
-      name: "peter",
-      email: "peter@gmail.com",
-      isEdit: false,
-    },
-    {
-      id: 3,
-      name: "mary",
-      email: "mary@gmail.com",
-      isEdit: false,
-    },
-  ];
-
-  constructor() {
-    super();
-  }
-}
-
-const userDataStore = new UserDataStore();
+import {
+  OneComponent,
+  Bind,
+  ReactiveLst,
+  ReactiveObj,
+  ITemplate,
+} from "../../onec";
+import { usersStore } from "../../stores";
+let css = require("./cards-component.css").default;
 
 export class CardsComponent extends OneComponent {
   // variables
-  users: Array<any> = [];
-  isEdit = false;
-  message = "Hello";
+  private users: Array<any> = [];
 
   // component definition
   $style = css.toString();
@@ -109,7 +85,7 @@ export class CardsComponent extends OneComponent {
 
   constructor() {
     super();
-    userDataStore.bind((data) => {
+    usersStore.bind((data) => {
       this.users = data.users;
     });
   }
