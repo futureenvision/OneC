@@ -6,11 +6,12 @@ import {
   ITemplate,
 } from "../../onec";
 import { usersStore } from "../../stores";
+import { IUser } from "../../stores/users";
 let css = require("./cards-component.css").default;
 
 export class CardsComponent extends OneComponent {
   // variables
-  private users: Array<any> = [];
+  private users: Array<IUser> = [];
 
   // component definition
   $style = css.toString();
