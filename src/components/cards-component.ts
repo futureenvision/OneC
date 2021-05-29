@@ -1,7 +1,7 @@
 let css = require('./index.css').default;
-import { Component, Store, Bind, ReactiveLst, ReactiveObj } from "../onec";
+import { OneComponent, OneCStore, Bind, ReactiveLst, ReactiveObj } from "../onec";
 
-class UserDataStore extends Store {
+class UserDataStore extends OneCStore {
   users: Array<any> = [
     {
       id: 1,
@@ -30,7 +30,7 @@ class UserDataStore extends Store {
 
 const userDataStore = new UserDataStore();
 
-export class ServiceTest extends Component {
+export class CardsComponent extends OneComponent {
   // variables
   users: Array<any> = [];
   isEdit = false;

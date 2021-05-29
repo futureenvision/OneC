@@ -1,6 +1,6 @@
-import { ServiceTest } from "./components/service_test";
+import { CardsComponent } from "./components/cards-component";
 import { OneC } from "./onec";
 
 OneC([
-  { selector: "c-service", definition: ServiceTest },
+  { selector: "c-cards", definition: CardsComponent },
 ]);
