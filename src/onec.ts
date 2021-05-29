@@ -417,7 +417,6 @@ export const OneCRenderer = (component: IComponent): void => {
             prop !== "templateRaw" &&
             prop !== "_text"
             ) {
-            console.log(this, prop);
             const attributeValue = this.getAttribute(
               prop.substring(1, prop.length)
             );
