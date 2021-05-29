@@ -1,4 +1,3 @@
-
 // SECTION: Component
 
 type IAnonymous = () => string | number | null | undefined | void;
@@ -329,6 +328,8 @@ export class OneComponent extends HTMLElement {
           }
         }
       }
+    } else {
+      throw new Error("parent element or object template not found.");
     }
   }
 
