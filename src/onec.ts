@@ -620,12 +620,12 @@ class BindObject {
    * @param {HTMLElement} element - The element to attach a event listener.
    * @param {string} property - The element property to retrieve upon event listener trigger.
    */
-  public addListener(element: HTMLElement, property: string): void {
+  public addListener(element: HTMLElement| any, property: string): void {
     if (element) {
       if (!this.element) {
         this.element = element;
         element.addEventListener("keyup", () => {
-          const value = element.getAttribute(property);
+          const value = element[property];
           if (value) {
             this.onChange(value);
             this.currentState = value;
