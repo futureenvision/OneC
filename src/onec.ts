@@ -1,4 +1,194 @@
+
 // SECTION: Component
+
+type IAnonymous = () => string | number | null | undefined | void;
+
+export interface ITemplate {
+  a?: IElement;
+  b?: IElement;
+  u?: IElement;
+  p?: IElement;
+  i?: IElement;
+  s?: IElement;
+  q?: IElement;
+  rb?: IElement;
+  rp?: IElement;
+  rt?: IElement;
+  em?: IElement;
+  h1?: IElement;
+  h2?: IElement;
+  h3?: IElement;
+  h4?: IElement;
+  h5?: IElement;
+  h6?: IElement;
+  hr?: IElement;
+  li?: IElement;
+  ul?: IElement;
+  ol?: IElement;
+  dl?: IElement;
+  dt?: IElement;
+  dd?: IElement;
+  br?: IElement;
+  tr?: IElement;
+  th?: IElement;
+  td?: IElement;
+  dfn?: IElement;
+  bdo?: IElement;
+  bdi?: IElement;
+  sub?: IElement;
+  col?: IElement;
+  sup?: IElement;
+  svg?: IElement;
+  map?: IElement;
+  ins?: IElement;
+  del?: IElement;
+  rtc?: IElement;
+  kbd?: IElement;
+  pre?: IElement;
+  img?: IElement;
+  var?: IElement;
+  wbr?: IElement;
+  nav?: IElement;
+  div?: IElement;
+  cite?: IElement;
+  menu?: IElement;
+  slot?: IElement;
+  form?: IElement;
+  math?: IElement;
+  area?: IElement;
+  abbr?: IElement;
+  code?: IElement;
+  data?: IElement;
+  main?: IElement;
+  time?: IElement;
+  html?: IElement;
+  base?: IElement;
+  head?: IElement;
+  link?: IElement;
+  body?: IElement;
+  meta?: IElement;
+  ruby?: IElement;
+  mark?: IElement;
+  samp?: IElement;
+  span?: IElement;
+  title?: IElement;
+  style?: IElement;
+  aside?: IElement;
+  tbody?: IElement;
+  tfoot?: IElement;
+  table?: IElement;
+  thead?: IElement;
+  meter?: IElement;
+  input?: IElement;
+  audio?: IElement;
+  track?: IElement;
+  param?: IElement;
+  video?: IElement;
+  embed?: IElement;
+  label?: IElement;
+  small?: IElement;
+  strong?: IElement;
+  button?: IElement;
+  legend?: IElement;
+  option?: IElement;
+  output?: IElement;
+  footer?: IElement;
+  figure?: IElement;
+  iframe?: IElement;
+  object?: IElement;
+  portal?: IElement;
+  source?: IElement;
+  canvas?: IElement;
+  script?: IElement;
+  header?: IElement;
+  select?: IElement;
+  dialog?: IElement;
+  summary?: IElement;
+  address?: IElement;
+  details?: IElement;
+  picture?: IElement;
+  caption?: IElement;
+  section?: IElement;
+  article?: IElement;
+  noscript?: IElement;
+  fieldset?: IElement;
+  datalist?: IElement;
+  colgroup?: IElement;
+  optgroup?: IElement;
+  textarea?: IElement;
+  progress?: IElement;
+  template?: IElement;
+  figcaption?: IElement;
+  blockquote?: IElement;
+}
+
+export interface IElement {
+  _id?: string | IAnonymous;
+  _src?: string | IAnonymous;
+  _text?: string | IAnonymous;
+  _style?: string | IAnonymous;
+  _class?: string | IAnonymous;
+  $click?: IAnonymous;
+  _afterscriptexecute?: IAnonymous;
+  _auxclick?: IAnonymous;
+  _beforescriptexecute?: IAnonymous;
+  _blur?: IAnonymous;
+  _click?: IAnonymous;
+  _compositionend?: IAnonymous;
+  _compositionstart?: IAnonymous;
+  _compositionupdate?: IAnonymous;
+  _contextmenu?: IAnonymous;
+  _copy?: IAnonymous;
+  _cut?: IAnonymous;
+  _dblclick?: IAnonymous;
+  _DOMActivate?: IAnonymous;
+  _DOMMouseScroll?: IAnonymous;
+  _error?: IAnonymous;
+  _focusin?: IAnonymous;
+  _focusout?: IAnonymous;
+  _focus?: IAnonymous;
+  _fullscreenchange?: IAnonymous;
+  _fullscreenerror?: IAnonymous;
+  _gesturechange?: IAnonymous;
+  _gestureend?: IAnonymous;
+  _gesturestart?: IAnonymous;
+  _keydown?: IAnonymous;
+  _keypress?: IAnonymous;
+  _keyup?: IAnonymous;
+  _mousedown?: IAnonymous;
+  _mouseenter?: IAnonymous;
+  _mouseleave?: IAnonymous;
+  _mousemove?: IAnonymous;
+  _mouseout?: IAnonymous;
+  _mouseover?: IAnonymous;
+  _mouseup?: IAnonymous;
+  _mousewheel?: IAnonymous;
+  _msContentZoom?: IAnonymous;
+  _MSGestureChange?: IAnonymous;
+  _MSGestureEnd?: IAnonymous;
+  _MSGestureHold?: IAnonymous;
+  _MSGestureStart?: IAnonymous;
+  _MSGestureTap?: IAnonymous;
+  _MSInertiaStart?: IAnonymous;
+  _MSManipulationStateChanged?: IAnonymous;
+  _overflow?: IAnonymous;
+  _paste?: IAnonymous;
+  _scroll?: IAnonymous;
+  _select?: IAnonymous;
+  _show?: IAnonymous;
+  _touchcancel?: IAnonymous;
+  _touchend?: IAnonymous;
+  _touchmove?: IAnonymous;
+  _touchstart?: IAnonymous;
+  _underflow?: IAnonymous;
+  _webkitmouseforcechanged?: IAnonymous;
+  _webkitmouseforcedown?: IAnonymous;
+  _webkitmouseforceup?: IAnonymous;
+  _webkitmouseforcewillbegin?: IAnonymous;
+  _wheel?: IAnonymous;
+  _cn?: Array<ITemplate | ReactiveObject> | ReactiveList;
+}
+
 /**
  * A OneC component template to creating a WebComponent.
  */
@@ -620,7 +810,7 @@ class BindObject {
    * @param {HTMLElement} element - The element to attach a event listener.
    * @param {string} property - The element property to retrieve upon event listener trigger.
    */
-  public addListener(element: HTMLElement| any, property: string): void {
+  public addListener(element: HTMLElement | any, property: string): void {
     if (element) {
       if (!this.element) {
         this.element = element;

@@ -1,5 +1,5 @@
 let css = require('./index.css').default;
-import { OneComponent, OneCStore, Bind, ReactiveLst, ReactiveObj } from "../onec";
+import { OneComponent, OneCStore, Bind, ReactiveLst, ReactiveObj, ITemplate } from "../onec";
 
 class UserDataStore extends OneCStore {
   users: Array<any> = [
@@ -38,7 +38,7 @@ export class CardsComponent extends OneComponent {
 
   // component definition
   $style = css.toString();
-  $template = {
+  $template: ITemplate = {
     div: {
       _class: "main-area",
       _cn: ReactiveLst((elements) => {

@@ -1,6 +1,18 @@
 {
     "cSpell.words": [
         "Helvetica",
-        "onec"
+        "afterscriptexecute",
+        "beforescriptexecute",
+        "compositionend",
+        "compositionstart",
+        "compositionupdate",
+        "gesturechange",
+        "gestureend",
+        "gesturestart",
+        "onec",
+        "webkitmouseforcechanged",
+        "webkitmouseforcedown",
+        "webkitmouseforceup",
+        "webkitmouseforcewillbegin"
     ]
 }
