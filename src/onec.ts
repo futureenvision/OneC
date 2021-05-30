@@ -267,8 +267,6 @@ export class OneComponent extends HTMLElement {
                     });
                   }
                 } else {
-                  console.log("[children] -> ", value);
-
                   value.forEach((child: ReactiveObject) => {
                     if (child instanceof ReactiveObject) {
                       const element = child.getObject();
@@ -318,13 +316,21 @@ export class OneComponent extends HTMLElement {
               );
             }
           } else {
-            if (value["__onec_element__"]) {
-              this.renderTemplate(value["__onec_element__"], value);
-            } else {
+            if (value["__onec_v_element__"]) {
               const tempElement = document.createElement(key);
-              parentElement.appendChild(tempElement);
+              value["__onec_v_element__"].replaceWith(tempElement)
               value["__onec_element__"] = tempElement;
               this.renderTemplate(tempElement, value);
+              
+            } else {
+              if (value["__onec_element__"]) {
+                this.renderTemplate(value["__onec_element__"], value);
+              } else {
+                const tempElement = document.createElement(key);
+                parentElement.appendChild(tempElement);
+                value["__onec_element__"] = tempElement;
+                this.renderTemplate(tempElement, value);
+              }
             }
           }
         }
@@ -635,6 +641,7 @@ class ElementObject {
 class ReactiveObject {
   private functionObject!: (obj: ElementObject) => void;
   private element!: HTMLElement | any;
+  private V!: HTMLElement | any;
 
   /**
    * Represents a object to reactively render a reactive/static objects..
@@ -652,7 +659,18 @@ class ReactiveObject {
     let elementObject = new ElementObject();
     this.removeGeneratedElement();
     this.functionObject(elementObject);
-    return elementObject.get();
+    const element = elementObject.get();
+    for (const key in element) {
+      if (Object.hasOwnProperty.call(element, key)) {
+        const elementValue = element[key];
+        if (this.V) {
+          if (!elementValue["__onec_v_element__"]) {
+            elementValue["__onec_v_element__"] = this.V;
+          }
+        }
+      }
+    }
+    return element;
   }
 
   /**
@@ -671,7 +689,7 @@ class ReactiveObject {
       if (Object.hasOwnProperty.call(this.element, key)) {
         const elementValue = this.element[key];
         if (elementValue["__onec_element__"]) {
-          elementValue["__onec_element__"].remove();
+          this.V = elementValue["__onec_element__"];
         }
       }
     }

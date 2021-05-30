@@ -13,12 +13,14 @@ export class CardComponent extends OneComponent {
     div: {
       _class: "card card-1",
       _cn: [
-        {
-          img: {
-            _class: "card_image",
-            _src: "https://images.pexels.com/photos/7955413/pexels-photo-7955413.jpeg?cs=srgb&dl=pexels-oleg-prachuk-7955413.jpg&fm=jpg",
-          },
-        },
+        ReactiveObj((element) => {
+          element.set({
+            img: {
+              _class: "card_image",
+              _src: "https://images.pexels.com/photos/7955413/pexels-photo-7955413.jpeg?cs=srgb&dl=pexels-oleg-prachuk-7955413.jpg&fm=jpg",
+            },
+          });
+        }),
         { p: { _class: "label", _text: "Name" } },
         ReactiveObj((element) => {
           if (this._isEdit) {
@@ -36,7 +38,9 @@ export class CardComponent extends OneComponent {
             });
           }
         }),
-        { p: { _class: "label", _text: "Email" } },
+        ReactiveObj((element) => {
+          element.set({ p: { _class: "label", _text: "Email" } });
+        }),
         ReactiveObj((element) => {
           if (this._isEdit) {
             element.set({
@@ -53,15 +57,17 @@ export class CardComponent extends OneComponent {
             });
           }
         }),
-        {
-          button: {
-            _class: "card_button",
-            _text: () => (this._isEdit ? "Show" : "Edit"),
-            $click: () => {
-              this._isEdit = !this._isEdit;
+        ReactiveObj((element) => {
+          element.set({
+            button: {
+              _class: "card_button",
+              _text: () => (this._isEdit ? "Show" : "Edit"),
+              $click: () => {
+                this._isEdit = !this._isEdit;
+              },
             },
-          },
-        },
+          });
+        }),
       ],
     },
   };
