@@ -1,8 +1,7 @@
-import { ICardComponent } from "../card";
 import { usersStore } from "../../stores";
 import { IUser } from "../../stores/users";
-let css = require("./cards-component.css").default;
 import { OneComponent, ReactiveLst } from "../../onec";
+const css = require("./cards-component.css").default;
 
 export class CardsComponent extends OneComponent {
   // variables
@@ -13,8 +12,8 @@ export class CardsComponent extends OneComponent {
   $template = {
     div: {
       _class: "main-area",
-      _cn: ReactiveLst((elements: Array<ICardComponent>) => {
-        for (let user of this.users) {
+      _cn: ReactiveLst((elements) => {
+        for (const user of this.users) {
           elements.push({
             "c-card": {
               _name: user.name,
