@@ -267,6 +267,8 @@ export class OneComponent extends HTMLElement {
                     });
                   }
                 } else {
+                  console.log("[children] -> ", value);
+
                   value.forEach((child: ReactiveObject) => {
                     if (child instanceof ReactiveObject) {
                       const element = child.getObject();
@@ -300,7 +302,7 @@ export class OneComponent extends HTMLElement {
           } else if (key[0] === "$") {
             if (
               !objTemplate[
-              `__onec_event_listener__${key.substring(1, key.length)}`
+                `__onec_event_listener__${key.substring(1, key.length)}`
               ]
             ) {
               objTemplate[
@@ -392,17 +394,18 @@ export const OneCRenderer = (component: IComponent): void => {
        * The series of changes in the life of a component.
        */
       private lifeCycleHooks(): void {
+        // TODO: fix lifeCycleHooks
         new MutationObserver((mutations) => {
           if (this.OnInit) {
             this.OnInit();
           }
-          this.activateAttributeWatchers();
         }).observe(document, {
           attributes: false,
           childList: true,
           characterData: false,
           subtree: true,
         });
+        this.activateAttributeWatchers();
       }
 
       /**
@@ -416,12 +419,16 @@ export const OneCRenderer = (component: IComponent): void => {
             prop !== "template" &&
             prop !== "templateRaw" &&
             prop !== "_text"
-            ) {
+          ) {
             const attributeValue = this.getAttribute(
               prop.substring(1, prop.length)
             );
             if (attributeValue) {
-              this[prop] = attributeValue;
+              if (typeof attributeValue === "function") {
+                this[prop] = attributeValue();
+              } else {
+                this[prop] = attributeValue;
+              }
             }
             this.updateTemplate();
 
@@ -433,7 +440,11 @@ export const OneCRenderer = (component: IComponent): void => {
                     prop.substring(1, prop.length)
                   );
                   if (attributeValue) {
-                    this[prop] = attributeValue;
+                    if (typeof attributeValue === "function") {
+                      this[prop] = attributeValue();
+                    } else {
+                      this[prop] = attributeValue;
+                    }
                   }
                   this.updateTemplate();
                 }
@@ -679,7 +690,7 @@ export class OneCStore {
    * Represents a OneC Store.
    * @constructor
    */
-  constructor() { }
+  constructor() {}
 
   /**
    * This function is used to add a anonymous function using to bind the Store with a component.
