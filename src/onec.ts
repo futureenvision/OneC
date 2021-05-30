@@ -225,118 +225,131 @@ export class OneComponent extends HTMLElement {
         if (Object.hasOwnProperty.call(objTemplate, key)) {
           const value = objTemplate[key];
           if (key[0] === "_") {
-            switch (key) {
-              case "_text":
-                if (typeof value === "function") {
-                  parentElement.innerHTML = value();
-                } else {
-                  parentElement.innerHTML = value;
-                }
-                break;
-              case "_style":
-                let cssObject = {};
-                if (typeof value === "function") {
-                  cssObject = value();
-                } else {
-                  cssObject = value;
-                }
-                for (const cssProperty in cssObject) {
-                  if (Object.hasOwnProperty.call(value, cssProperty)) {
-                    const cssValue = value[cssProperty];
-                    if (typeof cssValue === "function") {
-                      parentElement.style.setProperty(cssProperty, cssValue());
-                    } else {
-                      parentElement.style.setProperty(cssProperty, cssValue);
-                    }
-                  }
-                }
-                break;
-              case "_cn":
-                if (value instanceof ReactiveList) {
-                  const children = value.getList();
-                  if (children) {
-                    children.forEach((child: ReactiveObject) => {
-                      if (child instanceof ReactiveObject) {
-                        const element = child.getObject();
-                        this.renderTemplate(parentElement, element);
-                        value.addGeneratedElement(element);
-                      } else {
-                        this.renderTemplate(parentElement, child);
-                        value.addGeneratedElement(child);
-                      }
-                    });
-                  }
-                } else {
-                  value.forEach((child: ReactiveObject) => {
-                    if (child instanceof ReactiveObject) {
-                      const element = child.getObject();
-                      this.renderTemplate(parentElement, element);
-                      child.addGeneratedElement(element);
-                    } else {
-                      this.renderTemplate(parentElement, child);
-                    }
-                  });
-                }
-                break;
-              default:
-                if (value instanceof BindObject) {
-                  parentElement.setAttribute(
-                    key.substring(1, key.length),
-                    value.getCurrentState()
-                  );
-                  value.addListener(
-                    parentElement,
-                    key.substring(1, key.length)
-                  );
-                } else {
-                  parentElement.setAttribute(
-                    key.substring(1, key.length),
-                    value
-                  );
-                }
-
-                break;
-            }
+            this.renderProperty(parentElement, key, value);
           } else if (key[0] === "$") {
-            if (
-              !objTemplate[
-                `__onec_event_listener__${key.substring(1, key.length)}`
-              ]
-            ) {
-              objTemplate[
-                `__onec_event_listener__${key.substring(1, key.length)}`
-              ] = true;
-              parentElement.addEventListener(
-                key.substring(1, key.length),
-                (event) => {
-                  value(event);
-                  event.stopPropagation();
-                  this.updateTemplate();
-                }
-              );
-            }
+            this.renderListener(parentElement, objTemplate, key, value);
           } else {
-            if (value["__onec_v_element__"]) {
-              const tempElement = document.createElement(key);
-              value["__onec_v_element__"].replaceWith(tempElement)
-              value["__onec_element__"] = tempElement;
-              this.renderTemplate(tempElement, value);
-              
-            } else {
-              if (value["__onec_element__"]) {
-                this.renderTemplate(value["__onec_element__"], value);
-              } else {
-                const tempElement = document.createElement(key);
-                parentElement.appendChild(tempElement);
-                value["__onec_element__"] = tempElement;
-                this.renderTemplate(tempElement, value);
-              }
-            }
+            this.renderElement(parentElement, key, value);
           }
         }
       }
     } else {
       throw new Error("parent element or object template not found.");
+    }
+  }
+
+  private renderProperty(
+    parentElement: HTMLElement,
+    key: string,
+    value: object | ReactiveList | Array<ReactiveObject> | string
+  ): void {
+    switch (key) {
+      case "_text":
+        if (typeof value === "function") {
+          parentElement.innerHTML = value();
+        } else if (typeof value === "string") {
+          parentElement.innerHTML = value;
+        }
+        break;
+      case "_style":
+        let cssObject = null;
+        if (typeof value === "function") {
+          cssObject = value();
+        } else {
+          cssObject = value;
+        }
+        for (const cssProperty in cssObject) {
+          if (Object.hasOwnProperty.call(value, cssProperty)) {
+            const cssValue = (<any>value)[cssProperty];
+            if (typeof cssValue === "function") {
+              parentElement.style.setProperty(cssProperty, cssValue());
+            } else {
+              parentElement.style.setProperty(cssProperty, cssValue);
+            }
+          }
+        }
+        break;
+      case "_cn":
+        if (value instanceof ReactiveList) {
+          const children = value.getList();
+          if (children) {
+            children.forEach((child: ReactiveObject) => {
+              if (child instanceof ReactiveObject) {
+                const element = child.getObject();
+                this.renderTemplate(parentElement, element);
+                value.addGeneratedElement(element);
+              } else {
+                this.renderTemplate(parentElement, child);
+                value.addGeneratedElement(child);
+              }
+            });
+          }
+        } else if (value instanceof Array) {
+          value.forEach((child: ReactiveObject) => {
+            if (child instanceof ReactiveObject) {
+              const element = child.getObject();
+              this.renderTemplate(parentElement, element);
+              child.addGeneratedElement(element);
+            } else {
+              this.renderTemplate(parentElement, child);
+            }
+          });
+        }
+        break;
+      default:
+        if (key !== "__onec_reactive_element__" && key !== "__onec_element__") {
+          if (value instanceof BindObject) {
+            parentElement.setAttribute(
+              key.substring(1, key.length),
+              value.getCurrentState()
+            );
+            value.addListener(parentElement, key.substring(1, key.length));
+          } else if (typeof value === "string") {
+            parentElement.setAttribute(key.substring(1, key.length), value);
+          }
+        }
+        break;
+    }
+  }
+
+  private renderListener(
+    parentElement: HTMLElement,
+    objTemplate: any,
+    key: string,
+    value: (event: Event) => void
+  ): void {
+    if (
+      !objTemplate[`__onec_event_listener__${key.substring(1, key.length)}`]
+    ) {
+      objTemplate[`__onec_event_listener__${key.substring(1, key.length)}`] =
+        true;
+      parentElement.addEventListener(key.substring(1, key.length), (event) => {
+        value(event);
+        event.stopPropagation();
+        this.updateTemplate();
+      });
+    }
+  }
+
+  private renderElement(
+    parentElement: HTMLElement,
+    key: string,
+    value: any
+  ): void {
+    if (value["__onec_reactive_element__"]) {
+      const tempElement = document.createElement(key);
+      value["__onec_reactive_element__"].replaceWith(tempElement);
+      value["__onec_element__"] = tempElement;
+      this.renderTemplate(tempElement, value);
+    } else {
+      if (value["__onec_element__"]) {
+        this.renderTemplate(value["__onec_element__"], value);
+      } else {
+        const tempElement = document.createElement(key);
+        parentElement.appendChild(tempElement);
+        value["__onec_element__"] = tempElement;
+        this.renderTemplate(tempElement, value);
+      }
     }
   }
 
@@ -631,7 +644,13 @@ class ElementObject {
    * This function is used to get a element.
    */
   get() {
-    return this.element;
+    if (this.element) {
+      return this.element;
+    } else {
+      return {
+        empty: {},
+      };
+    }
   }
 }
 
@@ -641,7 +660,7 @@ class ElementObject {
 class ReactiveObject {
   private functionObject!: (obj: ElementObject) => void;
   private element!: HTMLElement | any;
-  private V!: HTMLElement | any;
+  private reactiveElement!: HTMLElement | any;
 
   /**
    * Represents a object to reactively render a reactive/static objects..
@@ -663,9 +682,9 @@ class ReactiveObject {
     for (const key in element) {
       if (Object.hasOwnProperty.call(element, key)) {
         const elementValue = element[key];
-        if (this.V) {
-          if (!elementValue["__onec_v_element__"]) {
-            elementValue["__onec_v_element__"] = this.V;
+        if (this.reactiveElement) {
+          if (!elementValue["__onec_reactive_element__"]) {
+            elementValue["__onec_reactive_element__"] = this.reactiveElement;
           }
         }
       }
@@ -689,7 +708,7 @@ class ReactiveObject {
       if (Object.hasOwnProperty.call(this.element, key)) {
         const elementValue = this.element[key];
         if (elementValue["__onec_element__"]) {
-          this.V = elementValue["__onec_element__"];
+          this.reactiveElement = elementValue["__onec_element__"];
         }
       }
     }
