@@ -3,8 +3,8 @@ let css = require("./card-component.css").default;
 
 export class CardComponent extends OneComponent {
   // component variables
-  private _name: string = "test";
-  private _email: string = "test";
+  private _name: string = "";
+  private _email: string = "";
   private _isEdit: boolean = false;
 
   // component definition
