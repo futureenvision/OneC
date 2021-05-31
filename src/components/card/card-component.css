@@ -8,20 +8,16 @@
   width: 290px;
   overflow: hidden;
   padding: 1em;
+  transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
-.card-1 {
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-}
-
-.card-1:hover {
+.card:hover {
   box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
   cursor: pointer;
 }
 
 .label {
-  color: #648de5;
+  color: #65AFFF;
   font-weight: 600;
 }
 
@@ -34,10 +30,16 @@
 .card_button {
   border: none;
   color: white;
-  background: #648de5;
+  width: 100%;
+  background: #007FFF;
   padding: 0.5em 0.9em;
   border-radius: 0.25em;
   margin-top: 2em;
+  font-size: 12pt;
+}
+
+.card_button:hover {
+  background: #0570db;
 }
 
 input {
@@ -60,5 +62,4 @@ input:focus {
   height: 10em;
   object-fit: cover;
   border-radius: 0.25em;
-  box-shadow: -1px -1px 3px rgb(0 0 0 / 12%), 0 1px 2px rgb(0 0 0 / 24%);
 }

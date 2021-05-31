@@ -11,7 +11,7 @@ export class CardComponent extends OneComponent {
   $style = css.toString();
   $template: ITemplate = {
     div: {
-      _class: "card card-1",
+      _class: "card",
       _cn: [
         ReactiveObj((element) => {
           element.set({

@@ -10,6 +10,7 @@
         "gestureend",
         "gesturestart",
         "onec",
+        "preconnect",
         "webkitmouseforcechanged",
         "webkitmouseforcedown",
         "webkitmouseforceup",
