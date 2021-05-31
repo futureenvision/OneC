@@ -1,0 +1,27 @@
+.primary {
+  border: none;
+  color: white;
+  background: #007fff;
+  padding: 0.5em 0.9em;
+  border-radius: 0.25em;
+  font-size: 12pt;
+}
+
+.primary:hover {
+  background: #066ace;
+}
+
+.secondary {
+  border: none;
+  color: #007fff;
+  background: white;
+  padding: 0.5em 0.9em;
+  border-radius: 0.25em;
+  font-size: 12pt;
+  border: 1px solid #007fff;
+}
+
+.secondary:hover {
+  color: white;
+  background: #007fff;
+}

@@ -1,9 +1,9 @@
 import { OneComponent } from "../../onec";
-const css = require("./header-component.css").default;
+import style from "./header-component.css";
 
 export class HeaderComponent extends OneComponent {
   // component definition
-  $style = css.toString();
+  $style = style;
   $template = {
     div: {
       _class: "header",
@@ -12,6 +12,11 @@ export class HeaderComponent extends OneComponent {
           div: {
             _class: "header-text",
             _text: "onec.js",
+          },
+        },
+        {
+          "c-button": {
+            _txt: "Github",
           },
         },
       ],

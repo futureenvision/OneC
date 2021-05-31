@@ -1,11 +1,14 @@
 .header {
   height: 4em;
-  margin-bottom: 8em;
+  display: grid;
+  padding-left: 2em;
+  padding-right: 2em;
+  align-items: center;
+  grid-template-columns: 1fr auto;
 }
 
 .header-text {
-  color: #007FFF;
   font-size: 28pt;
-  padding-left: 0.5em;
+  color: #007FFF;
   font-family: "Pattaya", sans-serif;
 }

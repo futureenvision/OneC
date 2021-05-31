@@ -306,6 +306,9 @@ export class OneComponent extends HTMLElement {
             value.addListener(parentElement, key.substring(1, key.length));
           } else if (typeof value === "string") {
             parentElement.setAttribute(key.substring(1, key.length), value);
+          } else if (typeof value === "function") {
+            console.log("[setAttribute] -> ",typeof value, key, value());
+            parentElement.setAttribute(key.substring(1, key.length), value());
           }
         }
         break;
@@ -360,7 +363,7 @@ export class OneComponent extends HTMLElement {
     if (this.template && this.shadowRoot) {
       this.template.innerHTML = "";
       this.shadowRoot.innerHTML = "";
-      this.template.innerHTML = `<style>${this.$style}</style>${this.templateRaw}`;
+      this.template.innerHTML = `<style>${this.$style.toString()}</style>${this.templateRaw}`;
       this.shadowRoot.appendChild(this.template.content.cloneNode(true));
     }
     this.renderTemplate(

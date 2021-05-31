@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   sodipodi:docname="onec.svg"
+   inkscape:version="1.1 (c68e22c387, 2021-05-23)"
+   id="svg838"
+   version="1.1"
+   viewBox="0 0 195.50818 190.68898"
+   height="190.68898mm"
+   width="195.50818mm"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <defs
+     id="defs832">
+    <linearGradient
+       id="linearGradient958"
+       inkscape:collect="always">
+      <stop
+         id="stop954"
+         offset="0"
+         style="stop-color:#007fff;stop-opacity:1" />
+      <stop
+         id="stop956"
+         offset="1"
+         style="stop-color:#007fff;stop-opacity:0" />
+    </linearGradient>
+    <marker
+       inkscape:stockid="Arrow1Lstart"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="marker1278"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         id="path1276"
+         d="M 0.0,0.0 L 5.0,-5.0 L -12.5,0.0 L 5.0,5.0 L 0.0,0.0 z "
+         style="fill-rule:evenodd;stroke:none;stroke-width:1pt;stroke-opacity:1;fill:#40b882;fill-opacity:1"
+         transform="scale(0.8) translate(12.5,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Lstart"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="Arrow1Lstart"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         id="path1006"
+         d="M 0.0,0.0 L 5.0,-5.0 L -12.5,0.0 L 5.0,5.0 L 0.0,0.0 z "
+         style="fill-rule:evenodd;stroke:none;stroke-width:1pt;stroke-opacity:1;fill:#40b882;fill-opacity:1"
+         transform="scale(0.8) translate(12.5,0)" />
+    </marker>
+    <linearGradient
+       id="linearGradient1274"
+       inkscape:swatch="gradient">
+      <stop
+         id="stop1270"
+         offset="0"
+         style="stop-color:#047c47;stop-opacity:1;" />
+      <stop
+         id="stop1272"
+         offset="1"
+         style="stop-color:#047c47;stop-opacity:0;" />
+    </linearGradient>
+    <linearGradient
+       gradientUnits="userSpaceOnUse"
+       y2="216.79153"
+       x2="179.09918"
+       y1="216.79153"
+       x1="142.78522"
+       id="linearGradient960"
+       xlink:href="#linearGradient958"
+       inkscape:collect="always"
+       gradientTransform="translate(-191.70158,-37.540179)" />
+  </defs>
+  <sodipodi:namedview
+     inkscape:snap-text-baseline="false"
+     inkscape:snap-object-midpoints="false"
+     inkscape:document-rotation="0"
+     inkscape:window-maximized="1"
+     inkscape:window-y="-11"
+     inkscape:window-x="2869"
+     inkscape:window-height="2066"
+     inkscape:window-width="3840"
+     showgrid="false"
+     inkscape:current-layer="g935"
+     inkscape:document-units="mm"
+     inkscape:cy="364.66201"
+     inkscape:cx="353.52729"
+     inkscape:zoom="1.7961838"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     borderopacity="1.0"
+     bordercolor="#666666"
+     pagecolor="#ffffff"
+     id="base"
+     inkscape:pagecheckerboard="0" />
+  <metadata
+     id="metadata835">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     transform="translate(-7.2459106,-53.155514)"
+     id="layer1"
+     inkscape:groupmode="layer"
+     inkscape:label="Layer 1">
+    <g
+       inkscape:export-ydpi="250.181"
+       inkscape:export-xdpi="250.181"
+       inkscape:export-filename="/Users/nigelmatyukira/Downloads/vachellia_core.png"
+       id="g901">
+      <g
+         inkscape:export-ydpi="250.181"
+         inkscape:export-xdpi="250.181"
+         inkscape:export-filename="/Users/nigelmatyukira/Downloads/vachellia_master.png"
+         id="g971">
+        <g
+           id="g935"
+           transform="matrix(3.7502216,0,0,3.7502216,-288.77327,-408.4079)">
+          <circle
+             style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;paint-order:stroke fill markers"
+             id="path869-5"
+             cx="105"
+             cy="148.5"
+             r="18.156984" />
+          <circle
+             style="fill:#2dc7ff;fill-opacity:1;stroke:none;stroke-width:0;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;paint-order:stroke fill markers"
+             id="path869-5-5"
+             cx="105"
+             cy="148.5"
+             r="18.156984" />
+          <ellipse
+             cy="179.25157"
+             cx="-30.759146"
+             id="path869-5-0"
+             style="opacity:1;fill:url(#linearGradient960);fill-opacity:1;stroke:none;stroke-width:0;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;paint-order:stroke fill markers"
+             rx="18.157061"
+             ry="18.156984"
+             transform="rotate(-45)" />
+        </g>
+        <circle
+           style="fill:none;fill-opacity:0.789474;stroke:#007fff;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:1.5, 9;stroke-dashoffset:0;stroke-opacity:1;paint-order:stroke fill markers"
+           id="path862"
+           cx="104.99148"
+           cy="148.51912"
+           r="89.66748" />
+      </g>
+    </g>
+  </g>
+</svg>

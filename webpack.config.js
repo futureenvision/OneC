@@ -2,6 +2,9 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const path = require("path");
 
 module.exports = {
+  experiments: {
+    asset: true,
+  },
   entry: "./src/index.ts",
   module: {
     rules: [
@@ -14,10 +17,14 @@ module.exports = {
         test: /\.css$/i,
         use: ["css-loader"],
       },
+      {
+        test: /\.(png|svg|jpg|jpeg|gif)$/i,
+        type: "asset/resource",
+      },
     ],
   },
   resolve: {
-    extensions: ['.tsx', '.ts', '.js', '.css'],
+    extensions: [".tsx", ".ts", ".js", ".css"],
   },
   output: {
     filename: "bundle.js",

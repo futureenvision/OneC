@@ -1,5 +1,5 @@
+import style from "./card-component.css";
 import { Bind, ITemplate, OneComponent, ReactiveObj } from "../../onec";
-let css = require("./card-component.css").default;
 
 export class CardComponent extends OneComponent {
   // component variables
@@ -8,8 +8,8 @@ export class CardComponent extends OneComponent {
   private _isEdit: boolean = false;
 
   // component definition
-  $style = css.toString();
-  $template: ITemplate = {
+  $style = style;
+  $template = {
     div: {
       _class: "card",
       _cn: [
@@ -38,9 +38,7 @@ export class CardComponent extends OneComponent {
             });
           }
         }),
-        ReactiveObj((element) => {
-          element.set({ p: { _class: "label", _text: "Email" } });
-        }),
+        { p: { _class: "label", _text: "Email" } },
         ReactiveObj((element) => {
           if (this._isEdit) {
             element.set({
@@ -57,17 +55,15 @@ export class CardComponent extends OneComponent {
             });
           }
         }),
-        ReactiveObj((element) => {
-          element.set({
-            button: {
-              _class: "card_button",
-              _text: () => (this._isEdit ? "Show" : "Edit"),
-              $click: () => {
-                this._isEdit = !this._isEdit;
-              },
+        {
+          "c-button": {
+            _txt: () => (this._isEdit ? "Show" : "Edit"),
+            _width: "100%",
+            $click: () => {
+              this._isEdit = !this._isEdit;
             },
-          });
-        }),
+          },
+        },
       ],
     },
   };

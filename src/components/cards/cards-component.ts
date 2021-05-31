@@ -1,14 +1,14 @@
 import { usersStore } from "../../stores";
+import style from "./cards-component.css";
 import { IUser } from "../../stores/users";
 import { OneComponent, ReactiveLst } from "../../onec";
-const css = require("./cards-component.css").default;
 
 export class CardsComponent extends OneComponent {
   // variables
   private users: Array<IUser> = [];
 
   // component definition
-  $style = css.toString();
+  $style = style;
   $template = {
     div: {
       _class: "main-area",

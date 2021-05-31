@@ -27,21 +27,6 @@
   padding: 0.2em;
 }
 
-.card_button {
-  border: none;
-  color: white;
-  width: 100%;
-  background: #007FFF;
-  padding: 0.5em 0.9em;
-  border-radius: 0.25em;
-  margin-top: 2em;
-  font-size: 12pt;
-}
-
-.card_button:hover {
-  background: #0570db;
-}
-
 input {
   background: inherit;
   border: 1px solid #c6cbd6;
