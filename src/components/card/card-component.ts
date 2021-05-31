@@ -55,6 +55,7 @@ export class CardComponent extends OneComponent {
             });
           }
         }),
+        { div: { _style: { height: "1em" } } },
         {
           "c-button": {
             _txt: () => (this._isEdit ? "Show" : "Edit"),
