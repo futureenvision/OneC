@@ -4,10 +4,16 @@ export class RootComponent extends OneComponent {
     "c-header": {},
     // "c-cards": {},
     div: {
+      _style: {
+        display: "grid",
+        height: "75%",
+        "align-items": "center",
+        "justify-content": "center",
+      },
       img: {
         _src: "assets/onec.svg",
-        _width: "500",
-        _height: "500",
+        _width: "400",
+        _height: "400",
       },
     },
   };
