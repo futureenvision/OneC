@@ -4,11 +4,12 @@
   padding-left: 2em;
   padding-right: 2em;
   align-items: center;
-  grid-template-columns: 1fr auto;
+  grid-template-columns: 1fr auto auto auto auto auto;
+  grid-gap: 3em;
 }
 
 .header-text {
   font-size: 28pt;
-  color: #007FFF;
+  color: #000000;
   font-family: "Pattaya", sans-serif;
 }

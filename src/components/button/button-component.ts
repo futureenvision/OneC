@@ -5,7 +5,7 @@ export class ButtonComponent extends OneComponent {
   // variable
   private _txt: string = "";
   private _type: string = "primary";
-  private _width: string = "min-content";
+  private _width: string = "auto";
 
   // component definition
   $style = style;
